@@ -1,18 +1,33 @@
 const PADDLE_HEIGHT = 100;
+const PADDLE_WIDTH = 10;
 const WINNING_SCORE = 3;
-const PADDLE_THICKNESS = 10;
+let pongCanvas,pongCanvasContext;
 let paddle1Y = 250;
 let paddle2Y = 250;
-let pongCanvas;
-let pongCanvasContext;
+
 let ballX = 50;
-let ballSpeedX = 10;
 let ballY = 50;
+let ballSpeedX = 10;
 let ballSpeedY = 4;
 let player1Score = 0;
 let player2Score = 0;
-let paddle2X;
+let winningPlayer;
 let winScreen = false;
+//let paddle2X;
+
+function handleMouseClick(evt){
+    if(winScreen){
+        player2Score=0;
+        player1Score=0;
+        winScreen = false;
+    }
+}
+
+function getMousePosition(evt){
+    let mousePosition = calculateMousePosition(evt);
+    paddle1Y = mousePosition.y - PADDLE_HEIGHT/2;
+}
+
 
 function calculateMousePosition(evt) {
     let rect = pongCanvas.getBoundingClientRect();
@@ -24,51 +39,55 @@ function calculateMousePosition(evt) {
         y: mouseY
     };
 }
-function handleMouseClick(evt){
-    if(winScreen){
-        player2Score=0;
-        player1Score=0;
-        winScreen = false
-    }
-}
+
 
 window.onload = function () {
-    pongCanvas = document.getElementById('pongGame');
-    pongCanvasContext = pongCanvas.getContext('2d');
+  
     let framesPerSecond = 30;
+    pongCanvas = document.getElementById('pongCanvas');
+    pongCanvasContext = pongCanvas.getContext('2d');
     setInterval(function () {
         move();
         draw();
     }, 1000 / framesPerSecond);
-    pongCanvas.addEventListener('mousedown',handleMouseClick)
-    pongCanvas.addEventListener('mousemove', function (evt) {
-        let mousePos = calculateMousePosition(evt);
-        paddle1Y = mousePos.y - (PADDLE_HEIGHT / 2);
-    });
+
+
+    pongCanvas.addEventListener('mousedown',handleMouseClick);
+    pongCanvas.addEventListener('mousemove', getMousePosition);
+
+}
+function computerMovement(){
+	//Inducing intelligence in computer player
+	if((paddle2Y + PADDLE_HEIGHT/2) < ballY-35)
+		paddle2Y += 5;	
+	else if((paddle2Y + PADDLE_HEIGHT/2) > ballY+35)
+		paddle2Y -= 5;
 }
 
-
 function ballReset() {
-    if(player1Score>=WINNING_SCORE || player2Score>=WINNING_SCORE){
-        
+    if(player1Score>=WINNING_SCORE){
+        winningPlayer=1;
+        winScreen = true;
+    } 
+    else if  (player2Score>=WINNING_SCORE){
+        winningPlayer=2;
         winScreen = true;
     }
-    ballSpeedY = 4;
-    ballSpeedX = -ballSpeedX;
     ballX = pongCanvas.width / 2;
     ballY = pongCanvas.height / 2;
-
+    ballSpeedX = -ballSpeedX;
+    ballSpeedY = 4;
 }
 
 function move() {
     if(winScreen){
          return ;
     }
-    
+    computerMovement();
     ballX += ballSpeedX;
     ballY += ballSpeedY;
     if (ballX < 0) {
-        if (ballY > paddle1Y && ballY < paddle1Y + PADDLE_HEIGHT){
+        if (ballY >= paddle1Y && ballY <= paddle1Y + PADDLE_HEIGHT){
             ballSpeedX = -ballSpeedX;
             let deltaY = ballY - (paddle1Y+PADDLE_HEIGHT/2);
             ballSpeedY = deltaY*0.35;
@@ -106,49 +125,44 @@ function move() {
     }
 }
 
-function drawNet(){
-    for(let i = 0;i<pongCanvas.height;i+=pongCanvas.height/15){
-        colorRect(pongCanvas.width/2-1,i,2,20,'white');
-    }
-}
+
 
 function draw() {
-  
-    // next line draws the canvas
+    
+    
+    pongCanvasContext.fillStyle= 'black';
     pongCanvasContext.fillRect(0, 0, pongCanvas.width, pongCanvas.height);    // this is the left paddle
-    if(winScreen){
-        pongCanvasContext.fillStyle = 'white';
-        if(player1Score>=WINNING_SCORE){
-        pongCanvasContext.fillText("Left Player won!!! Click to play again" ,350,200);
-    }   else if (player2Score>=WINNING_SCORE){
-        pongCanvasContext.fillText("Right Player won!!! Click to play again" ,350,200);
+  //  drawNet();
+   
 
-
-    }
-        return ;
-   }
-   drawNet();
-    colorRect(0, paddle1Y, 10, PADDLE_HEIGHT, 'white');
+   pongCanvasContext.fillStyle= 'white';
+   pongCanvasContext.fillRect(0,paddle1Y,PADDLE_WIDTH,PADDLE_HEIGHT);
 // this the right paddle
-    colorRect(pongCanvas.width -PADDLE_THICKNESS, paddle2Y, PADDLE_THICKNESS, PADDLE_HEIGHT, 'white');
+    pongCanvasContext.fillStyle='white';
+    pongCanvasContext.fillRect(pongCanvas.width - PADDLE_WIDTH,paddle2Y,PADDLE_WIDTH,PADDLE_HEIGHT);
+   
     // next line draws the ball
-    colorCircle(ballX, ballY, 10, 'white');
+   pongCanvasContext.fillStyle='white';
+   pongCanvasContext.beginPath();
+   pongCanvasContext.arc(ballX,ballY,5,0,Math.PI*2,true);
+   pongCanvasContext.fill();
 
     pongCanvasContext.fillText("Score Player 1:" +player1Score,100,100);
     pongCanvasContext.fillText("Score Player 2:"+player2Score,pongCanvas.width - 200,100);
 
-
+    if(winScreen){
+        let string= "Player "+winningPlayer+" wins!Click to play again";
+        pongCanvasContext.fillStyle = 'black';
+        pongCanvasContext.fillRect(0,0,pongCanvas.width,pongCanvas.height);
+        pongCanvasContext.fillStyle = 'white';
+        pongCanvasContext.fillText(string,(pongCanvas.width-120)/2,200);
+    
+   }
 
 }
-
-function colorCircle(centerX, centerY, radius, drawColor) {
-    pongCanvasContext.fillStyle = drawColor;
-    pongCanvasContext.beginPath();
-    pongCanvasContext.arc(centerX, centerY, radius, 0, Math.PI * 2);
-    pongCanvasContext.fill();
-}
-
-function colorRect(leftX, topY, width, height, drawColor) {
-    pongCanvasContext.fillStyle = drawColor;
-    pongCanvasContext.fillRect(leftX, topY, width, height);
-}
+/*
+function drawNet(){
+    for(let i = 0;i<pongCanvas.height;i+=pongCanvas.height/15){
+        colorRect(pongCanvas.width/2-1,i,2,20,'white');
+    }
+}*/

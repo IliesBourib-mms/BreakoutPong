@@ -15,7 +15,7 @@ class Ball {
 
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.ballRadius, 0, Math.PI * 2);
-        ctx.fillStyle = "#190707";
+        ctx.fillStyle = "#ffffff";
         ctx.fill();
         ctx.closePath();
 
@@ -32,7 +32,7 @@ class Ball {
                 this.dy = -this.dy;
             } else {
                 lives--;
-                alert("you died");
+                setTimeout(1000);   
                 if (!lives) {
                     alert("Game Over");
                     document.location.reload();

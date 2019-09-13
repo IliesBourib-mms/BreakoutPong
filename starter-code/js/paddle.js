@@ -34,7 +34,7 @@ drawPaddle(){
             paddle.paddleX = 50;
         }
     }
-}
+}   
 
 
 
