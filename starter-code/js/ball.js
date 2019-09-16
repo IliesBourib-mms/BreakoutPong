@@ -43,6 +43,8 @@ class Ball {
                     this.dx = 3;
                     this.dy = -3;
                 }
+
+                
             }
         }
 

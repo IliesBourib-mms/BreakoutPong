@@ -114,18 +114,17 @@ function move() {
     if (up && paddle2Y < pongCanvas.height - PADDLE_HEIGHT) {
         paddle2Y -= 7;
     } else if (paddle2Y < 0) {
-        paddle2Y += 7;
+        paddle2Y += 15;
     } else if (down && paddle2Y > 0) {
         paddle2Y += 7;
     } else if (paddle2Y > pongCanvas.height - PADDLE_HEIGHT) {
-        paddle2Y -= 7;
+        paddle2Y -= 15;
     }
 
-    if (paddle1Y<0){
-        paddle1Y += 7;
-    }
-    else if (paddle1Y> pongCanvas.height - PADDLE_HEIGHT){
-        paddle1Y -=7;
+    if (paddle1Y < 0) {
+        paddle1Y += 15;
+    } else if (paddle1Y > pongCanvas.height - PADDLE_HEIGHT) {
+        paddle1Y -= 15;
     }
 
     ballX += ballSpeedX;
@@ -189,6 +188,7 @@ function draw() {
     pongCanvasContext.arc(ballX, ballY, 5, 0, Math.PI * 2, true);
     pongCanvasContext.fill();
     //next lines display the scores
+    pongCanvasContext.fillStyle = 'yellow';
     pongCanvasContext.fillText("Score Player 1:" + player1Score, 100, 100);
     pongCanvasContext.fillText("Score Player 2:" + player2Score, pongCanvas.width - 200, 100);
     // Winning Screen displaying
