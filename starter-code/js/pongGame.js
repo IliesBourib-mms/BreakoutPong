@@ -13,6 +13,8 @@ let player1Score = 0;
 let player2Score = 0;
 let winningPlayer;
 let winScreen = false;
+let up = false;
+let down = false;
 //let paddle2X;
 
 function handleMouseClick(evt){
@@ -52,17 +54,43 @@ window.onload = function () {
     }, 1000 / framesPerSecond);
 
 
-    pongCanvas.addEventListener('mousedown',handleMouseClick);
-    pongCanvas.addEventListener('mousemove', getMousePosition);
+    document.addEventListener('mousedown',handleMouseClick);
+    document.addEventListener('mousemove', getMousePosition);
+    document.addEventListener("keydown", keyDownHandler, false);
+    document.addEventListener("keyup", keyUpHandler, false);
 
 }
-function computerMovement(){
-	//Inducing intelligence in computer player
+/*
+function player2Movement(){
+    //Inducing intelligence in computer player
+    
+
 	if((paddle2Y + PADDLE_HEIGHT/2) < ballY-35)
 		paddle2Y += 5;	
 	else if((paddle2Y + PADDLE_HEIGHT/2) > ballY+35)
 		paddle2Y -= 5;
 }
+*/
+
+function keyDownHandler(e) {
+    if (e.key === "Up" || e.key === "ArrowUp") {
+        up = true;
+        
+    } else if (e.key === "Down" || e.key === "ArrowDown") {
+        down = true;
+         }
+}
+   
+
+function keyUpHandler(e) {
+    if (e.key == "Up" || e.key == "ArrowUp") {
+        up = false;
+    } else if (e.key == "Down" || e.key == "ArrowDown") {
+        down = false;
+    }
+    
+}
+
 
 function ballReset() {
     if(player1Score>=WINNING_SCORE){
@@ -83,7 +111,14 @@ function move() {
     if(winScreen){
          return ;
     }
-    computerMovement();
+   // computerMovement();
+   if(up && paddle2Y < pongCanvas.height-PADDLE_HEIGHT) {
+    paddle2Y -= 7;
+}
+else if(down && paddle2Y > 0) {
+    paddle2Y += 7;
+}
+
     ballX += ballSpeedX;
     ballY += ballSpeedY;
     if (ballX < 0) {

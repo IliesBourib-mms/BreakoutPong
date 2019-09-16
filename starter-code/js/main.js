@@ -6,7 +6,8 @@ let paddle = new Paddle();
 
 let ball = new Ball(canvas, paddle);
 let bricksObject = new Bricks(ball);
-
+let bleep = new Audio();
+bleep.src = "../sounds/clickOn.wav";
 
 
 function drawScore() {
@@ -40,12 +41,7 @@ function keyUpHandler(e) {
     } else if (e.key == "Left" || e.key == "ArrowLeft") {
         paddle.leftPressed = false;
     }
-    else if (e.key == "Up" || e.key == "ArrowUp"){
-        pongPlayer1.upPressedPlayer1 = false;
-    }
-    else if (e.key == "Down" || e.key == "ArrowDown" ){
-        pongPlayer1.downPressedPlayer1 = false;
-    }
+    
 }
 
 function mouseMoveHandler(e) {
