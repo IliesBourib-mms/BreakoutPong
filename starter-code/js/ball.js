@@ -36,9 +36,10 @@ class Ball {
                     alert("Game Over");
                     document.location.reload();
                 } else {
-                //    alert("You died");
+                    //    alert("You died");
+                    this.paddle.paddleX = (canvas.width - this.paddle.paddleWidth) / 2;
                     this.paddle.drawPaddle();
-                    this.x = canvas.width/2;
+                    this.x = canvas.width / 2;
                     this.dx = 3;
                     this.dy = -3;
                 }

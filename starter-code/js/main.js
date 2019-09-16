@@ -12,13 +12,13 @@ let bricksObject = new Bricks(ball);
 function drawScore() {
 
     ctx.font = "16px Arial";
-    ctx.fillStyle = '#0095dd';
+    ctx.fillStyle = '#000000';
     ctx.fillText("Score: " + score, 8, 20);
 }
 
 function drawLives() {
     ctx.font = "16 px Arial";
-    ctx.fillStyle = '0095dd';
+    ctx.fillStyle = '#000000';
     ctx.fillText("Lives: " + lives, canvas.width - 65, 20);
 }
 document.addEventListener("keydown", keyDownHandler, false);
