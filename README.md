@@ -11,6 +11,6 @@ Zum Einen wird ein BreakoutGame erstellt in welchen die Backsteine (Bricks) mit 
 
 ####Pong Game####
 
-Desweiteren soll ein Mutliplayermodus erstellt werden ohne Backsteine (Bricks) in dem man gegeneinander spielt erwischt ein Spieler den Ball nicht dann bekommt der Gegner ein Tor gutgeschrieben. Die Schnelligkeit des Balles wird mit Laufzeit des Spieles erhöht. Wenn ein Spieler 10 Tore geschossen hat ist das Spiel beeendet und man wird wieder zum Startbildschirm weitergeleitet oder man hat die Option neuzustarten
+Desweiteren soll ein Mutliplayermodus erstellt werden ohne Backsteine (Bricks) in dem man gegeneinander spielt erwischt ein Spieler den Ball nicht dann bekommt der Gegner ein Tor gutgeschrieben.  Wenn ein Spieler 3 Tore geschossen hat ist das Spiel beeendet und kann über den "Back" - Button zum Startbildschirm zurück oder durch einen Mausklick ein neues Spiel starten
 
 ##########
