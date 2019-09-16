@@ -32,14 +32,13 @@ class Ball {
                 this.dy = -this.dy;
             } else {
                 lives--;
-                setTimeout(1000);   
                 if (!lives) {
                     alert("Game Over");
                     document.location.reload();
                 } else {
-                    this.x = canvas.width / 2;
-                    this.y = canvas.height - 30;
-                    this.paddle.paddleX = (this.canvas.width - this.paddleWidth) / 2;
+                //    alert("You died");
+                    this.paddle.drawPaddle();
+                    this.x = canvas.width/2;
                     this.dx = 3;
                     this.dy = -3;
                 }

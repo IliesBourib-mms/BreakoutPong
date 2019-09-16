@@ -23,7 +23,7 @@ function drawLives() {
 }
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
-document.addEventListener("mousemove", mouseMoveHandler, false);
+ document.addEventListener("mousemove", mouseMoveHandler, false);
 
 function keyDownHandler(e) {
     if (e.key == "Right" || e.key == "ArrowRight") {
@@ -69,3 +69,12 @@ function draw() {
     requestAnimationFrame(draw);
 }
 draw();
+
+// let audioPlayer ;
+/*
+function play(){
+     audioPlayer = document.getElementById("audioPlayer");
+
+     audioPlayer.volume = 0.5;
+     audioPlayer.play();
+}*/

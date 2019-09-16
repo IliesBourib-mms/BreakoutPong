@@ -130,31 +130,31 @@ function move() {
 function draw() {
     
     
-    pongCanvasContext.fillStyle= 'black';
-    pongCanvasContext.fillRect(0, 0, pongCanvas.width, pongCanvas.height);    // this is the left paddle
+    pongCanvasContext.fillStyle= 'green';
+    pongCanvasContext.fillRect(0, 0, pongCanvas.width, pongCanvas.height);    
   //  drawNet();
    
 
-   pongCanvasContext.fillStyle= 'white';
+   pongCanvasContext.fillStyle= 'white';// this is the left paddle
    pongCanvasContext.fillRect(0,paddle1Y,PADDLE_WIDTH,PADDLE_HEIGHT);
-// this the right paddle
-    pongCanvasContext.fillStyle='white';
+
+    pongCanvasContext.fillStyle='white';// this the right paddle
     pongCanvasContext.fillRect(pongCanvas.width - PADDLE_WIDTH,paddle2Y,PADDLE_WIDTH,PADDLE_HEIGHT);
    
-    // next line draws the ball
+    // next lines draws the ball
    pongCanvasContext.fillStyle='white';
    pongCanvasContext.beginPath();
    pongCanvasContext.arc(ballX,ballY,5,0,Math.PI*2,true);
    pongCanvasContext.fill();
-
+    //next lines display the scores
     pongCanvasContext.fillText("Score Player 1:" +player1Score,100,100);
     pongCanvasContext.fillText("Score Player 2:"+player2Score,pongCanvas.width - 200,100);
-
+// Winning Screen displaying
     if(winScreen){
         let string= "Player "+winningPlayer+" wins!Click to play again";
         pongCanvasContext.fillStyle = 'black';
         pongCanvasContext.fillRect(0,0,pongCanvas.width,pongCanvas.height);
-        pongCanvasContext.fillStyle = 'white';
+        pongCanvasContext.fillStyle = 'yellow';
         pongCanvasContext.fillText(string,(pongCanvas.width-120)/2,200);
     
    }

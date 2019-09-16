@@ -71,9 +71,7 @@ class Bricks {
                         ball.dy = -ball.dy;
                         brick.status = 0;
                         this.bricks[columns][rows].status = 0;
-                        //ctx.beginPath();
-                        //ctx.clearRect(brick.x,brick.y,this.brickWidth,this.brickHeight);
-                        //ctx.closePath();
+                        
 
                         score++;
                         if (score === this.brickColumnCount * this.brickRowCount) {
