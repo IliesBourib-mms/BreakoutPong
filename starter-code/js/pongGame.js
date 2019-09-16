@@ -121,6 +121,13 @@ function move() {
         paddle2Y -= 7;
     }
 
+    if (paddle1Y<0){
+        paddle1Y += 7;
+    }
+    else if (paddle1Y> pongCanvas.height - PADDLE_HEIGHT){
+        paddle1Y -=7;
+    }
+
     ballX += ballSpeedX;
     ballY += ballSpeedY;
     if (ballX < 0) {
